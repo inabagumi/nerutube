@@ -1,0 +1,40 @@
+{
+  "author": "Haneru Developers",
+  "bugs": {
+    "url": "https://github.com/inabagumi/inaba-jinja/issues"
+  },
+  "dependencies": {
+    "date-fns": "^2.19.0",
+    "googleapis": "^68.0.0",
+    "next": "^10.0.9",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "description": "NeruTube!",
+  "devDependencies": {
+    "@inabagumi/eslint-config-react": "^9.0.0",
+    "@inabagumi/prettier-config": "^1.1.2",
+    "@types/node": "^14.14.37",
+    "@types/react": "^17.0.3",
+    "eslint": "^7.23.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
+  },
+  "homepage": "https://www.nerutube.com/",
+  "license": "MIT",
+  "main": "n/a",
+  "name": "nerutube",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inabagumi/nerutube.git"
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "format": "prettier -w .",
+    "lint": "eslint .",
+    "start": "next start"
+  },
+  "version": "1.0.0"
+}
