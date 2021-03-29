@@ -1,21 +1,9 @@
 import { isAfter } from 'date-fns'
-import { youtube_v3 } from 'googleapis'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import getStartTime from '../youtube/getStartTime'
 import getVideos from '../youtube/getVideos'
 
 const YOUTUBE_CHANNEL_ID = 'UC0Owc36U9lOyi9Gx9Ic-4qg'
-
-function getStartTime({
-  liveStreamingDetails
-}: youtube_v3.Schema$Video): Date | undefined {
-  if (!liveStreamingDetails) return
-
-  const startTime =
-    liveStreamingDetails.actualStartTime ??
-    liveStreamingDetails?.scheduledStartTime
-
-  return new Date(startTime)
-}
 
 const Redirector: NextPage = () => null
 
@@ -32,19 +20,23 @@ export const getStaticProps: GetStaticProps<Params> = async ({ params }) => {
 
     if (videos.length > 0) {
       const now = new Date()
-      const video = videos.reduce((accumulator, currentValue) => {
-        const accumulatorStartTime = getStartTime(accumulator)
-        const currentValueStartTime = getStartTime(currentValue)
 
-        return isAfter(accumulatorStartTime, now) &&
-          isAfter(currentValueStartTime, now)
-          ? isAfter(currentValueStartTime, accumulatorStartTime)
-            ? accumulator
-            : currentValue
-          : isAfter(accumulatorStartTime, currentValueStartTime)
-          ? accumulator
-          : currentValue
-      })
+      const scheduledVideos = videos.filter((video) =>
+        isAfter(getStartTime(video), now)
+      )
+
+      const video =
+        scheduledVideos.length > 0
+          ? scheduledVideos.reduce((accumulator, currentValue) =>
+              isAfter(getStartTime(accumulator), getStartTime(currentValue))
+                ? currentValue
+                : accumulator
+            )
+          : videos.reduce((accumulator, currentValue) =>
+              isAfter(getStartTime(accumulator), getStartTime(currentValue))
+                ? accumulator
+                : currentValue
+            )
 
       if (video.id) {
         return {
