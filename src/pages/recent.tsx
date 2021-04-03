@@ -30,6 +30,9 @@ const Recent: NextPage<Props> = ({ video }) => {
 
   if (!videoURL) return <Error statusCode={404} />
 
+  const canonicalURL =
+    process.env.NEXT_PUBLIC_BASE_URL &&
+    new URL('/recent', process.env.NEXT_PUBLIC_BASE_URL).toString()
   const title = video.snippet?.title ?? videoURL
   const description =
     video.snippet?.description && video.snippet.description.replace(/\n/g, ' ')
@@ -43,7 +46,7 @@ const Recent: NextPage<Props> = ({ video }) => {
         <noscript>
           <meta content={`0;URL=${videoURL}`} httpEquiv="refresh" />
         </noscript>
-        <link href={videoURL} rel="canonical" />
+        {canonicalURL && <link href={canonicalURL} rel="canonical" />}
         {description && <meta content={description} name="description" />}
         {description && <meta content="" property="og:description" />}
         {image?.url && <meta content={image.url} property="og:image" />}
@@ -55,7 +58,7 @@ const Recent: NextPage<Props> = ({ video }) => {
         )}
         <meta content={title} property="og:title" />
         <meta content="article" property="og:type" />
-        <meta content="https://www.nerutube.com/recent" property="og:url" />
+        {canonicalURL && <meta content={canonicalURL} property="og:url" />}
         <meta content="summary_large_image" name="twitter:card" />
       </Head>
     </>
