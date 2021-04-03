@@ -3,6 +3,7 @@ import type { GetStaticProps, NextPage } from 'next'
 import Error from 'next/error'
 import Head from 'next/head'
 import { useEffect } from 'react'
+import { truncate } from '../text'
 import { getRecentVideo } from '../youtube'
 
 type Props = {
@@ -32,7 +33,8 @@ const Recent: NextPage<Props> = ({ video }) => {
 
   const title = video.snippet?.title ?? videoURL
   const description =
-    video.snippet?.description && video.snippet.description.replace(/\n/g, ' ')
+    video.snippet?.description &&
+    truncate(video.snippet.description.replace(/\n/g, ' '))
   const image =
     video.snippet?.thumbnails?.maxres ?? video.snippet?.thumbnails?.standard
 
