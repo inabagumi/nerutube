@@ -1,5 +1,5 @@
 import { youtube_v3 } from 'googleapis'
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Error from 'next/error'
 import Head from 'next/head'
 import { useEffect } from 'react'
@@ -67,7 +67,9 @@ const Recent: NextPage<Props> = ({ video }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  res
+}) => {
   const video = await getRecentVideo(
     process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL_ID,
     {
@@ -76,11 +78,12 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     }
   )
 
+  res.setHeader('Cache-Control', 'max-age=60,s-maxage=600')
+
   return {
     props: {
       video
-    },
-    revalidate: 600
+    }
   }
 }
 
