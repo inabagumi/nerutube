@@ -13,7 +13,7 @@
   "description": "NeruTube!",
   "devDependencies": {
     "@inabagumi/eslint-config-react": "^9.0.1",
-    "@inabagumi/prettier-config": "^1.1.2",
+    "@inabagumi/prettier-config": "^1.1.3",
     "@types/node": "^14.14.45",
     "@types/react": "^17.0.5",
     "eslint": "^7.26.0",
