@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "date-fns": "^2.22.1",
-    "googleapis": "^79.0.0",
+    "googleapis": "^80.0.0",
     "next": "^11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
