@@ -4,7 +4,7 @@
     "url": "https://github.com/inabagumi/inaba-jinja/issues"
   },
   "dependencies": {
-    "date-fns": "^2.24.0",
+    "date-fns": "^2.25.0",
     "googleapis": "^88.2.0",
     "next": "^11.1.2",
     "react": "^17.0.2",
